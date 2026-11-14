@@ -30,109 +30,112 @@ const ScanPage = lazy(() => import('./features/checkin/ScanPage'));
  *  /frog/...                FROG Tools (frog only)
  *  /admin                   Admin roster upload (admin only)
  */
-export const router = createBrowserRouter([
-  { path: '/login', element: <LoginPage /> },
-  {
-    element: <AppShell />,
-    children: [
-      { path: '/', element: <PathPage /> },
-      {
-        path: '/events',
-        element: (
-          <RequireRole>
-            <EventsPage />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/leaderboard',
-        element: (
-          <RequireRole>
-            <LeaderboardPage />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/chat',
-        element: (
-          <RequireRole>
-            <ChatPage />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/profile',
-        element: (
-          <RequireRole>
-            <ProfilePage />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/scan',
-        element: (
-          <RequireRole roles={['freshman']}>
-            <Suspense
-              fallback={
-                <p className="p-6 text-center text-sm text-neutral-500">Loading scanner…</p>
-              }
-            >
-              <ScanPage />
-            </Suspense>
-          </RequireRole>
-        ),
-      },
+export const router = createBrowserRouter(
+  [
+    { path: '/login', element: <LoginPage /> },
+    {
+      element: <AppShell />,
+      children: [
+        { path: '/', element: <PathPage /> },
+        {
+          path: '/events',
+          element: (
+            <RequireRole>
+              <EventsPage />
+            </RequireRole>
+          ),
+        },
+        {
+          path: '/leaderboard',
+          element: (
+            <RequireRole>
+              <LeaderboardPage />
+            </RequireRole>
+          ),
+        },
+        {
+          path: '/chat',
+          element: (
+            <RequireRole>
+              <ChatPage />
+            </RequireRole>
+          ),
+        },
+        {
+          path: '/profile',
+          element: (
+            <RequireRole>
+              <ProfilePage />
+            </RequireRole>
+          ),
+        },
+        {
+          path: '/scan',
+          element: (
+            <RequireRole roles={['freshman']}>
+              <Suspense
+                fallback={
+                  <p className="p-6 text-center text-sm text-neutral-500">Loading scanner…</p>
+                }
+              >
+                <ScanPage />
+              </Suspense>
+            </RequireRole>
+          ),
+        },
 
-      {
-        path: '/frog',
-        element: (
-          <RequireRole roles={['frog']}>
-            <FrogHomePage />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/frog/events/new',
-        element: (
-          <RequireRole roles={['frog']}>
-            <AddEventPage />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/frog/events/:eventId/qr',
-        element: (
-          <RequireRole roles={['frog']}>
-            <EventQRPage />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/frog/events/:eventId/attendance',
-        element: (
-          <RequireRole roles={['frog']}>
-            <AttendancePage />
-          </RequireRole>
-        ),
-      },
-      {
-        path: '/frog/olympics',
-        element: (
-          <RequireRole roles={['frog', 'admin']}>
-            <OlympicsResultPage />
-          </RequireRole>
-        ),
-      },
+        {
+          path: '/frog',
+          element: (
+            <RequireRole roles={['frog']}>
+              <FrogHomePage />
+            </RequireRole>
+          ),
+        },
+        {
+          path: '/frog/events/new',
+          element: (
+            <RequireRole roles={['frog']}>
+              <AddEventPage />
+            </RequireRole>
+          ),
+        },
+        {
+          path: '/frog/events/:eventId/qr',
+          element: (
+            <RequireRole roles={['frog']}>
+              <EventQRPage />
+            </RequireRole>
+          ),
+        },
+        {
+          path: '/frog/events/:eventId/attendance',
+          element: (
+            <RequireRole roles={['frog']}>
+              <AttendancePage />
+            </RequireRole>
+          ),
+        },
+        {
+          path: '/frog/olympics',
+          element: (
+            <RequireRole roles={['frog', 'admin']}>
+              <OlympicsResultPage />
+            </RequireRole>
+          ),
+        },
 
-      {
-        path: '/admin',
-        element: (
-          <RequireRole roles={['admin']}>
-            <AdminPage />
-          </RequireRole>
-        ),
-      },
-      { path: '*', element: <PathPage /> },
-    ],
-  },
-]);
+        {
+          path: '/admin',
+          element: (
+            <RequireRole roles={['admin']}>
+              <AdminPage />
+            </RequireRole>
+          ),
+        },
+        { path: '*', element: <PathPage /> },
+      ],
+    },
+  ],
+  { basename: import.meta.env.BASE_URL },
+);

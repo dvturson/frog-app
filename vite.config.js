@@ -6,7 +6,9 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // `npm run dev:https` runs with --mode https, which turns on a self-signed cert
 // so phones on the same Wi-Fi can use the camera (browsers require HTTPS for it).
+// VITE_BASE is set to '/frog-app/' by the GitHub Pages workflow; Vercel/local use '/'.
 export default defineConfig(({ mode }) => ({
+  base: process.env.VITE_BASE || '/',
   plugins: [
     react(),
     tailwindcss(),
@@ -22,12 +24,13 @@ export default defineConfig(({ mode }) => ({
         background_color: '#ffffff',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
+        start_url: '.',
+        scope: '.',
         icons: [
-          { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
           {
-            src: '/icons/icon-512-maskable.png',
+            src: 'icons/icon-512-maskable.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
