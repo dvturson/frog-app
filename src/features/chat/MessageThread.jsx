@@ -1,6 +1,6 @@
 /**
  * Chat bubbles. Your messages sit on the right in green.
- * @param {{ messages: { id: number, author: string, mine?: boolean, body: string, time: string }[] }} props
+ * @param {{ messages: { id: number | string, author: string, mine?: boolean, body: string, time: string }[] }} props
  */
 export default function MessageThread({ messages }) {
   if (messages.length === 0) {
@@ -14,9 +14,8 @@ export default function MessageThread({ messages }) {
             <span className="mb-0.5 text-xs font-semibold text-neutral-500">{m.author}</span>
           )}
           <p
-            className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
-              m.mine ? 'rounded-br-sm bg-frog-600 text-white' : 'rounded-bl-sm bg-neutral-100'
-            }`}
+            className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${m.mine ? 'rounded-br-sm bg-frog-600 text-white' : 'rounded-bl-sm bg-neutral-100'
+              }`}
           >
             {m.body}
           </p>
