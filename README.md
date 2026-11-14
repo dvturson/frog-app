@@ -2,10 +2,10 @@
 
 **Break out of your comfort zone.** JMU LEAP is a companion app for freshmen during FROG Week /
 Weeks of Welcome. Attendance at FROG events is low because there's little incentive, so LEAP turns
-the week into a game. Freshmen scan a rotating QR code at each event, earn points for their FROG
+the weeks into a game. Freshmen scan a rotating QR code at each event, earn points for their FROG
 group, keep daily attendance streaks, chat with their group and FROG, and climb a live leaderboard
-of every FROG group, including live **FROGlympics** competitions for real prizes. FROGs (First-yeaR
-Orientation Guides) get tools to create events, run check-in, and confirm who actually stayed.
+of every FROG group, including live **FROGlympics** competitions, FROG vs. FROG. FROGs (First-yeaR
+Orientation Guides) get tools to create optional events, run check-in, and confirm who actually stayed.
 
 Built at the JMU Make-a-thon (24 hours, 5 people).
 
@@ -36,5 +36,4 @@ All passwords: **`LeapFrog2026!`**
 ## Docs
 
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): data model, points rules, anti-cheat.
-- [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md): pitch / demo script (to fill in).
 - [`CLAUDE.md`](CLAUDE.md): conventions for AI coding assistants (and humans).
