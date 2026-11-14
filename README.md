@@ -78,16 +78,6 @@ On a second device, log in as `student4` → Path → Scan QR. Then as `frog1`, 
 Talk_ to see the attendance screen. Event times are relative to when `seed.sql` ran, so re-run it
 **within ~25 minutes of the demo** (the D-Hall QR window closes at the event's halfway point).
 
-## Who owns what
-
-| Area                                              | Owner                | Main folders                                                                                                                       |
-| ------------------------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Database, functions, anti-cheat                   | Senior               | `supabase/`                                                                                                                        |
-| App shell, auth, routing, integration, FROG Tools | Junior / lead        | `src/main.jsx`, `App.jsx`, `routes.jsx`, `src/lib/`, `src/components/` (shell), `features/auth`, `features/frog`, `features/admin` |
-| Path + Profile + Check-in scanner                 | Freshman CS #1       | `features/path`, `features/profile`, `features/checkin`                                                                            |
-| Events + Olympics + Leaderboard + Chat            | Freshman CS #2       | `features/events`, `features/olympics`, `features/leaderboard`, `features/chat`                                                    |
-| Mascot, logo, colors, content, pitch deck         | Freshman engineering | `src/components/FrogMascot.jsx`, `src/index.css` (`@theme`), `public/icons/`, `docs/DEMO_SCRIPT.md`, event idea text               |
-
 ## Git workflow
 
 - `main` is **always deployable** (Vercel deploys it).
