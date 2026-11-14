@@ -1,10 +1,9 @@
 /**
  * FROG / ADD EVENT: create one of up to 3 optional events for a day.
  * The database enforces the 30-minute minimum and the 3-per-day limit too.
- * FrogAI button (bottom right) is a placeholder.
+ * FrogAI button (bottom right) opens FrogAISheet, which uses preset responses
+ * from frogAIPresets.js (no real AI). Picking an idea fills in the form.
  * TODO:
- * - [ ] FrogAI: call an LLM through a Supabase Edge Function (never put API keys
- *       in the frontend), seeded with previous years' FROG events
  * - [ ] Location picker with common JMU spots
  * - [ ] Auto-post an announcement to the group chat when an event is created
  */
@@ -14,23 +13,26 @@ import { useAuth } from '../../lib/auth/useAuth';
 import { supabase } from '../../lib/supabase';
 import Button from '../../components/Button';
 import FrogMascot from '../../components/FrogMascot';
-import Sheet from '../../components/Sheet';
+import FrogAISheet from './FrogAISheet';
 
 const MIN_MINUTES = 30;
-
-/** Static ideas until FrogAI is real. */
-const IDEAS = [
-  { title: 'Two Truths and a Lie on the Quad', location: 'The Quad' },
-  { title: 'Sit with Strangers at D-Hall', location: 'D-Hall' },
-  { title: 'Downtown Harrisonburg Scavenger Hunt', location: 'Court Square' },
-  { title: 'Arboretum Walk & Talk', location: 'Edith J. Carrier Arboretum' },
-  { title: 'Club Meeting Crash', location: 'Student Union' },
-];
 
 /** @returns {string} today as YYYY-MM-DD in local time */
 function todayString() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+/**
+ * Adds minutes to an "HH:MM" time, clamped to 23:59 so it stays on the same day.
+ * @param {string} time
+ * @param {number} minutes
+ * @returns {string}
+ */
+function addMinutes(time, minutes) {
+  const [h, m] = time.split(':').map(Number);
+  const total = Math.min(h * 60 + m + minutes, 23 * 60 + 59);
+  return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
 }
 
 const inputClass =
@@ -50,6 +52,21 @@ export default function AddEventPage() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
+
+  /**
+   * Fills the form from a FrogAI idea. Sets the end time too if a start time is set.
+   * @param {import('./frogAIPresets').FrogAIIdea} idea
+   */
+  function pickIdea(idea) {
+    setForm((f) => ({
+      ...f,
+      title: idea.title,
+      location: idea.location,
+      description: idea.description,
+      end: f.start ? addMinutes(f.start, Math.max(idea.minutes, MIN_MINUTES)) : f.end,
+    }));
+    setAiOpen(false);
+  }
 
   /** @param {keyof typeof form} key */
   const field = (key) => ({
@@ -142,29 +159,7 @@ export default function AddEventPage() {
         <FrogMascot mood="happy" size={32} /> FrogAI
       </button>
 
-      <Sheet open={aiOpen} onClose={() => setAiOpen(false)} title="FrogAI (coming soon)">
-        <p className="mb-3 text-sm text-neutral-500">
-          FrogAI will suggest icebreakers and events based on previous years. For now, tap an idea
-          to use it:
-        </p>
-        <ul className="space-y-2">
-          {IDEAS.map((idea) => (
-            <li key={idea.title}>
-              <button
-                type="button"
-                className="w-full rounded-xl bg-frog-50 px-3 py-2 text-left text-sm font-semibold text-frog-800 hover:bg-frog-100"
-                onClick={() => {
-                  setForm((f) => ({ ...f, title: idea.title, location: idea.location }));
-                  setAiOpen(false);
-                }}
-              >
-                {idea.title}
-                <span className="block text-xs font-normal text-neutral-500">{idea.location}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </Sheet>
+      <FrogAISheet open={aiOpen} onClose={() => setAiOpen(false)} onPick={pickIdea} />
     </div>
   );
 }
