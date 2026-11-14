@@ -2,7 +2,7 @@
  * PROFILE TAB
  * TODO:
  * - [ ] Edit display name + major (only those columns are writable; see 0002_rls.sql)
- * - [ ] Attendance history (checkins joined to events)
+ * - [x] Attendance history (checkins joined to events, live via realtime)
  * - [ ] Badges for comfort-zone milestones
  */
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +11,25 @@ import { levelFromXp, liveStreak } from '../../lib/points';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import FrogMascot from '../../components/FrogMascot';
+import { formatDay, formatTime } from '../events/eventPhase';
+import { useMyCheckins } from './useMyCheckins';
 
 const ROLE_LABEL = { freshman: 'Freshman', frog: 'FROG', admin: 'Admin' };
 
+/** Badge text + colors for each check-in status. */
+const STATUS = {
+  arrived: { label: 'Awaiting FROG', className: 'bg-gold-400/20 text-neutral-700' },
+  stayed: { label: 'Confirmed', className: 'bg-frog-100 text-frog-800' },
+  left: { label: 'Left early', className: 'bg-red-50 text-red-700' },
+};
+
+/**
+ * Profile tab: stats, live attendance history, sign out.
+ * @returns {import('react').JSX.Element}
+ */
 export default function ProfilePage() {
   const { profile, signOut } = useAuth();
+  const { checkins, loading, error } = useMyCheckins(profile.id);
   const navigate = useNavigate();
   const { level } = levelFromXp(profile.xp);
 
@@ -47,7 +61,39 @@ export default function ProfilePage() {
       </div>
 
       <Card title="Attendance history">
-        <p className="text-sm text-neutral-500">TODO: list of events you checked in to.</p>
+        {loading ? (
+          <p className="text-sm text-neutral-500">Loading…</p>
+        ) : error ? (
+          <p className="text-sm text-red-700">{error}</p>
+        ) : checkins.length === 0 ? (
+          <p className="text-sm text-neutral-500">
+            No check-ins yet. Scan your FROG&apos;s QR at an event to start your history.
+          </p>
+        ) : (
+          <ul className="divide-y divide-neutral-100">
+            {checkins.map((c) => {
+              const s = STATUS[c.status];
+              return (
+                <li key={c.event_id} className="flex items-center justify-between gap-3 py-2">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{c.event?.title ?? 'Event'}</p>
+                    <p className="text-xs text-neutral-500">
+                      {c.event
+                        ? `${formatDay(c.event.starts_at)} · ${formatTime(c.event.starts_at)}`
+                        : ''}
+                      {c.status === 'stayed' && c.event ? ` · +${c.event.xp} XP` : ''}
+                    </p>
+                  </div>
+                  <span
+                    className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${s.className}`}
+                  >
+                    {s.label}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </Card>
 
       {profile.role === 'admin' && (
