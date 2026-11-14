@@ -21,8 +21,11 @@ import EventList from '../events/EventList';
 import BeInvolvedList from '../events/BeInvolvedList';
 import { useEvents } from '../events/useEvents';
 
-/** JMU logo file (in `public/icons/`). Tinted green below, so its own colors don't matter. */
-const JMU_LOGO_SRC = '/icons/jmu-logo.svg';
+/**
+ * JMU logo file (in `public/icons/`). Tinted green below, so its own colors don't matter.
+ * Prefixed with BASE_URL so it resolves under GitHub Pages' `/frog-app/` subpath too.
+ */
+const JMU_LOGO_SRC = `${import.meta.env.BASE_URL}icons/jmu-logo.svg`;
 
 /**
  * The JMU logo tinted frog green (the file is used as a mask, so its own colors
