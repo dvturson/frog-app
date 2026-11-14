@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../lib/auth/useAuth';
 import ChannelTabs from './ChannelTabs';
 import MessageThread from './MessageThread';
-import { useChat } from './useChat';
+import { useChat } from './UseChat';
 
 /**
  * Chat page: channel tabs, persisted message thread, composer.
