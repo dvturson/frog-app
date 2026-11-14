@@ -1,7 +1,7 @@
 /**
  * FROG / HOME (FROG Tools tab)
  * Group name, leaderboard, today's events (mandatory + up to 3 optional slots),
- * Add event, Chat, FROGolympics results. Tap an event to open its check-in QR.
+ * Add event, Chat, FROGlympics results. Tap an event to open its check-in QR.
  * TODO:
  * - [ ] Show how many students checked in per event
  * - [ ] Edit / delete your own optional events
@@ -100,7 +100,7 @@ export default function FrogHomePage() {
           Group chat
         </Button>
         <Button variant="secondary" to="/frog/olympics">
-          FROGolympics
+          FROGlympics
         </Button>
       </div>
     </div>

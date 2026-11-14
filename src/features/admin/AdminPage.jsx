@@ -5,7 +5,7 @@
  * - [ ] Look up group ids by name, upsert into `roster` (role = freshman, or frog)
  *       New sign-ups get role + group from the roster automatically (handle_new_user trigger).
  * - [ ] Update `profiles` for people who already have accounts
- * - [ ] Link to FROGolympics verification
+ * - [ ] Link to FROGlympics verification
  */
 import { useState } from 'react';
 import Button from '../../components/Button';
@@ -37,7 +37,7 @@ export default function AdminPage() {
         </Button>
       </Card>
 
-      <Card title="FROGolympics verification">
+      <Card title="FROGlympics verification">
         <Button variant="secondary" to="/frog/olympics" full>
           Open results
         </Button>

@@ -74,7 +74,7 @@ When a FROG taps ✓ (stayed):
   earns an extra **+n** points.
 - ✗ (left) records the status and awards nothing. Each check-in can be confirmed only once.
 
-FROGolympics: a FROG enters placements, then an admin calls `verify_olympics_result(id)`. Unverified
+FROGlympics: a FROG enters placements, then an admin calls `verify_olympics_result(id)`. Unverified
 results are visible but don't count.
 
 ## Security summary (`0002_rls.sql`)
