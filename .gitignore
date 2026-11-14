@@ -1,0 +1,20 @@
+node_modules
+dist
+dev-dist
+*.local
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Editors / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+*.log
+
+# Tool scratch folders
+.vibe-wise/
