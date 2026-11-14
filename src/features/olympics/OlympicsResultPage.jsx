@@ -1,5 +1,5 @@
 /**
- * FROGOLYMPICS RESULTS
+ * FROGLYMPICS RESULTS
  * FROG enters placements per group; points count only after an admin verifies.
  * Placement points (set by a DB trigger): 1st 40 · 2nd 20 · 3rd 10 · 4th 5.
  *
@@ -29,7 +29,7 @@ export default function OlympicsResultPage() {
 
   return (
     <div className="space-y-4 p-4">
-      <h1 className="text-2xl font-extrabold text-frog-900">FROGolympics results</h1>
+      <h1 className="text-2xl font-extrabold text-frog-900">FROGlympics results</h1>
       <p className="text-sm text-neutral-500">
         Points count after an admin at the event verifies them.
       </p>
@@ -42,7 +42,7 @@ export default function OlympicsResultPage() {
             onChange={(e) => setEventId(e.target.value)}
             className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2"
           >
-            <option value="">Choose a FROGolympics event…</option>
+            <option value="">Choose a FROGlympics event…</option>
             {olympics.map((e) => (
               <option key={e.id} value={e.id}>
                 {e.title} ({formatDay(e.starts_at)})

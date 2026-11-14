@@ -40,7 +40,7 @@ export default function LeaderboardList({ rows, highlightGroupId, showBreakdown 
               </p>
               {showBreakdown && (
                 <p className="text-xs text-neutral-500">
-                  {row.member_points} attendance · {row.olympics_points} FROGolympics
+                  {row.member_points} attendance · {row.olympics_points} FROGlympics
                 </p>
               )}
             </div>

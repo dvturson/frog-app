@@ -2,7 +2,7 @@
  * LEADERBOARD TAB
  * TODO:
  * - [ ] Animate rank changes when realtime updates arrive
- * - [ ] Recent FROGolympics results section (olympics_results joined to events)
+ * - [ ] Recent FROGlympics results section (olympics_results joined to events)
  * - [ ] Top individual contributors inside your group (profiles.points)
  */
 import Card from '../../components/Card';
@@ -45,7 +45,7 @@ export default function LeaderboardPage() {
             Streak bonus: on day <em>n</em> of your streak, your first optional event earns +
             <em>n</em>.
           </li>
-          <li>FROGolympics: 1st 40 · 2nd 20 · 3rd 10 · 4th 5 (after admin verifies).</li>
+          <li>FROGlympics: 1st 40 · 2nd 20 · 3rd 10 · 4th 5 (after admin verifies).</li>
         </ul>
       </Card>
     </div>

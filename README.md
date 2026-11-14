@@ -4,7 +4,7 @@
 Weeks of Welcome. Attendance at FROG events is low because there's little incentive, so LEAP turns
 the week into a game. Freshmen scan a rotating QR code at each event, earn points for their FROG
 group, keep daily attendance streaks, chat with their group and FROG, and climb a live leaderboard
-of every FROG group, including live **FROGolympics** competitions for real prizes. FROGs (First-yeaR
+of every FROG group, including live **FROGlympics** competitions for real prizes. FROGs (First-yeaR
 Orientation Guides) get tools to create events, run check-in, and confirm who actually stayed.
 
 Built at the JMU Make-a-thon (24 hours, 5 people).

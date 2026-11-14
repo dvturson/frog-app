@@ -142,7 +142,7 @@ insert into public.events (id, title, description, type, is_mandatory, frog_grou
    'session', true, null, 'Bridgeforth Stadium',
    now() - interval '1 day' - interval '3 hours', now() - interval '1 day' - interval '1 hour', 20,
    'ad000000-0000-0000-0000-000000000001'),
-  ('e0000000-0000-0000-0000-000000000002', 'FROGolympics: Tug of War',
+  ('e0000000-0000-0000-0000-000000000002', 'FROGlympics: Tug of War',
    'Groups face off on the Quad. Admin verifies the winners.',
    'frogolympics', true, null, 'The Quad',
    now() - interval '1 day', now() - interval '1 day' + interval '1 hour', 20,
@@ -162,7 +162,7 @@ insert into public.events (id, title, description, type, is_mandatory, frog_grou
    'session', true, null, 'Court Square, Downtown Harrisonburg',
    now() + interval '3 hours', now() + interval '5 hours', 20,
    'ad000000-0000-0000-0000-000000000001'),
-  ('e0000000-0000-0000-0000-000000000006', 'FROGolympics: Quad Relay',
+  ('e0000000-0000-0000-0000-000000000006', 'FROGlympics: Quad Relay',
    'Relay race across the Quad. 1st: 40, 2nd: 20, 3rd: 10, 4th: 5 points.',
    'frogolympics', true, null, 'The Quad',
    now() + interval '1 day', now() + interval '1 day' + interval '1 hour', 20,
@@ -183,7 +183,7 @@ insert into public.checkins (event_id, user_id, status, created_at) values
   ('e0000000-0000-0000-0000-000000000003', 'a0000000-0000-0000-0000-000000000002', 'arrived', now() - interval '37 minutes'),
   ('e0000000-0000-0000-0000-000000000003', 'a0000000-0000-0000-0000-000000000003', 'arrived', now() - interval '35 minutes');
 
--- ---------- FROGolympics results (Tug of War, verified) ----------------------
+-- ---------- FROGlympics results (Tug of War, verified) ----------------------
 insert into public.olympics_results (event_id, frog_group_id, placement, entered_by, verified_by, verified_at) values
   ('e0000000-0000-0000-0000-000000000002', '11111111-0000-0000-0000-000000000002', 1, 'f0000000-0000-0000-0000-000000000002', 'ad000000-0000-0000-0000-000000000001', now() - interval '23 hours'),
   ('e0000000-0000-0000-0000-000000000002', '11111111-0000-0000-0000-000000000001', 2, 'f0000000-0000-0000-0000-000000000002', 'ad000000-0000-0000-0000-000000000001', now() - interval '23 hours'),
