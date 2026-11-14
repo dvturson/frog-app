@@ -1,10 +1,12 @@
+import FrogScene from '../../components/FrogScene';
+
 /**
  * Chat bubbles. Your messages sit on the right in green.
  * @param {{ messages: { id: number | string, author: string, mine?: boolean, body: string, time: string }[] }} props
  */
 export default function MessageThread({ messages }) {
   if (messages.length === 0) {
-    return <p className="p-6 text-center text-sm text-neutral-400">No messages yet. Say hi!</p>;
+    return <FrogScene scene="tea">No messages yet. Say hi!</FrogScene>;
   }
   return (
     <ul className="space-y-3 px-4 py-3">
@@ -14,8 +16,9 @@ export default function MessageThread({ messages }) {
             <span className="mb-0.5 text-xs font-semibold text-neutral-500">{m.author}</span>
           )}
           <p
-            className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${m.mine ? 'rounded-br-sm bg-frog-600 text-white' : 'rounded-bl-sm bg-neutral-100'
-              }`}
+            className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
+              m.mine ? 'rounded-br-sm bg-frog-600 text-white' : 'rounded-bl-sm bg-neutral-100'
+            }`}
           >
             {m.body}
           </p>

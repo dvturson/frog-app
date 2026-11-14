@@ -54,7 +54,7 @@ function Dashboard() {
   return (
     <div className="space-y-4 p-4">
       <div className="flex items-center gap-3">
-        <FrogMascot mood="happy" size={56} />
+        <FrogMascot mood="happy" size={56} idle />
         <div>
           <p className="text-lg font-bold text-frog-900">
             Hi, {profile.display_name.split(' ')[0]}!

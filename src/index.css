@@ -28,3 +28,354 @@ body,
 body {
   @apply bg-neutral-100 text-neutral-900 antialiased;
 }
+
+/* Stop the browser's own pull-to-refresh so our stretchy frog can do it. */
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+/* ---------- Comedic motion (see FrogMascot, XPBar, StreakCounter, Button, Stamp) ---------- */
+
+/* Button: rocks a little when pressed. Class is re-added on every press. */
+@keyframes btn-wobble {
+  0% {
+    transform: rotate(0) scale(1);
+  }
+  25% {
+    transform: rotate(-3deg) scale(0.96);
+  }
+  50% {
+    transform: rotate(2.5deg) scale(1.02);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+.btn-wobble {
+  animation: btn-wobble 320ms ease-out;
+}
+
+/* Whole app column jolts when a stamp lands. */
+@keyframes screen-shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  15% {
+    transform: translate(-6px, 3px) rotate(-0.6deg);
+  }
+  30% {
+    transform: translate(5px, -4px) rotate(0.5deg);
+  }
+  45% {
+    transform: translate(-4px, 2px);
+  }
+  60% {
+    transform: translate(3px, -1px);
+  }
+  80% {
+    transform: translate(-1px, 1px);
+  }
+}
+.screen-shake {
+  animation: screen-shake 380ms ease-out;
+}
+
+/* Rubber stamp slams down from above the screen. */
+@keyframes stamp-slam {
+  0% {
+    transform: scale(3) rotate(-24deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.92) rotate(-11deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-12deg);
+    opacity: 1;
+  }
+}
+.stamp-slam {
+  animation: stamp-slam 300ms cubic-bezier(0.5, 0, 0.75, 0) both;
+}
+
+/* Mascot: fly buzzes in on a drunken path, tongue shoots out and back. */
+@keyframes fly-buzz {
+  0% {
+    transform: translate(40px, -46px);
+  }
+  25% {
+    transform: translate(18px, -20px);
+  }
+  45% {
+    transform: translate(30px, -8px);
+  }
+  65% {
+    transform: translate(6px, -14px);
+  }
+  85% {
+    transform: translate(10px, 2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.frog-fly {
+  animation: fly-buzz 1.6s ease-in-out both;
+}
+@keyframes fly-wings {
+  50% {
+    opacity: 0.2;
+  }
+}
+.frog-fly-wings {
+  animation: fly-wings 80ms linear infinite;
+}
+@keyframes tongue-flick {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  45%,
+  55% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 1;
+  }
+}
+.frog-tongue {
+  animation: tongue-flick 320ms ease-in-out both;
+}
+
+/* Cheeks puff out for a second (gulping a fly, finishing a worm). */
+@keyframes cheek-bulge {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.45, 1.3);
+  }
+  60% {
+    transform: scale(1.25, 1.15);
+  }
+}
+.cheek-bulge {
+  animation: cheek-bulge 900ms ease-in-out;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* XP worm: the free end wriggles in protest. */
+@keyframes worm-wriggle {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  25% {
+    transform: translateY(-1px) rotate(-1.5deg);
+  }
+  75% {
+    transform: translateY(1px) rotate(1deg);
+  }
+}
+.worm-wriggle {
+  animation: worm-wriggle 900ms ease-in-out infinite;
+  transform-origin: right center;
+}
+
+/* Streak sparkler. */
+@keyframes spark-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.6);
+  }
+}
+.spark {
+  animation: spark-twinkle 1.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes smoke-drift {
+  0% {
+    transform: translate(0, 0) scale(0.7);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(3px, -7px) scale(1.2);
+    opacity: 0;
+  }
+}
+.smoke {
+  animation: smoke-drift 2.2s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Empty-state props. */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(2px) rotate(1.5deg);
+  }
+}
+.bob {
+  animation: bob 3s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes steam {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+}
+.steam {
+  animation: steam 2.4s ease-out infinite;
+}
+@keyframes pom-shake {
+  0%,
+  100% {
+    transform: rotate(-14deg) translateY(0);
+  }
+  50% {
+    transform: rotate(14deg) translateY(-3px);
+  }
+}
+.pom-shake {
+  animation: pom-shake 350ms ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-wobble,
+  .screen-shake,
+  .frog-fly,
+  .frog-fly-wings,
+  .cheek-bulge,
+  .worm-wriggle,
+  .spark,
+  .smoke,
+  .bob,
+  .steam,
+  .pom-shake,
+  .dangle,
+  .kick-l,
+  .kick-r {
+    animation: none;
+  }
+}
+
+/* Pull-to-refresh frog snapping back up like taffy. */
+@keyframes frog-snap {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.3, 0.12);
+  }
+  70% {
+    transform: scale(0.9, 0.35);
+  }
+  100% {
+    transform: scale(1, 0);
+    opacity: 0;
+  }
+}
+.frog-snap {
+  animation: frog-snap 450ms cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+  transform-origin: top center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .frog-snap {
+    animation-duration: 1ms;
+  }
+}
+
+/* Your-group row: frog hanging off the edge. */
+@keyframes dangle {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+.dangle {
+  animation: dangle 1.6s ease-in-out infinite;
+  transform-origin: top center;
+}
+@keyframes kick {
+  0%,
+  100% {
+    transform: rotate(-28deg);
+  }
+  50% {
+    transform: rotate(28deg);
+  }
+}
+.kick-l,
+.kick-r {
+  animation: kick 380ms ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: top center;
+}
+.kick-r {
+  animation-delay: -190ms;
+}
+
+/* QR guard frog: salute held for ~1s each time the code refreshes. */
+@keyframes salute-show {
+  0% {
+    opacity: 0;
+  }
+  8%,
+  80% {
+    opacity: 1;
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes salute-hide {
+  0% {
+    opacity: 1;
+  }
+  8%,
+  80% {
+    opacity: 0;
+  }
+  90%,
+  100% {
+    opacity: 1;
+  }
+}
+.salute-up {
+  animation: salute-show 1.3s ease-out both;
+}
+.salute-rest {
+  animation: salute-hide 1.3s ease-out both;
+}

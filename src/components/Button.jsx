@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { replayAnimation } from '../lib/fx';
 
 const VARIANTS = {
   primary: 'bg-frog-600 text-white hover:bg-frog-700 disabled:bg-frog-300',
@@ -9,6 +10,7 @@ const VARIANTS = {
 
 /**
  * App button. Pass `to` to render a router Link instead of a <button>.
+ * Rocks a little when pressed.
  * @param {{
  *   variant?: keyof typeof VARIANTS,
  *   to?: string,
@@ -23,8 +25,15 @@ export default function Button({
   full = false,
   className = '',
   children,
+  onPointerDown,
   ...rest
 }) {
+  /** @param {import('react').PointerEvent<HTMLElement>} e */
+  const wobble = (e) => {
+    replayAnimation(e.currentTarget, 'btn-wobble');
+    onPointerDown?.(/** @type {any} */ (e));
+  };
+
   const classes = `inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors disabled:cursor-not-allowed ${
     VARIANTS[variant]
   } ${full ? 'w-full' : ''} ${className}`;
@@ -38,13 +47,13 @@ export default function Button({
   }
   if (to) {
     return (
-      <Link to={to} className={classes}>
+      <Link to={to} className={classes} onPointerDown={wobble}>
         {children}
       </Link>
     );
   }
   return (
-    <button type="button" className={classes} {...rest}>
+    <button type="button" className={classes} onPointerDown={wobble} {...rest}>
       {children}
     </button>
   );

@@ -8,6 +8,7 @@
  */
 import { useState } from 'react';
 import Card from '../../components/Card';
+import FrogScene from '../../components/FrogScene';
 import DayToggle from './DayToggle';
 import EventList from './EventList';
 import BeInvolvedList from './BeInvolvedList';
@@ -25,7 +26,9 @@ export default function EventsPage() {
         {loading ? (
           <p className="text-sm text-neutral-500">Loading…</p>
         ) : error ? (
-          <p className="text-sm text-red-600">{error}</p>
+          <FrogScene scene="tangled">
+            <span className="text-red-600">{error}</span>
+          </FrogScene>
         ) : (
           <EventList
             events={events}

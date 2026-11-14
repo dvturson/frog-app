@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import FrogScene from '../../components/FrogScene';
 import { eventPhase, formatDay, formatTime } from './eventPhase';
 
 /** @param {{ event: import('../../lib/types').LeapEvent }} props */
@@ -40,7 +41,7 @@ export default function EventList({
   linkTo,
   emptyText = 'No events yet.',
 }) {
-  if (events.length === 0) return <p className="text-sm text-neutral-500">{emptyText}</p>;
+  if (events.length === 0) return <FrogScene scene="pool">{emptyText}</FrogScene>;
 
   return (
     <ul className="divide-y divide-frog-100">

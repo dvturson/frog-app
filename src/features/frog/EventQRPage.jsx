@@ -12,6 +12,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import { supabase } from '../../lib/supabase';
 import FrogMascot from '../../components/FrogMascot';
+import { GuardFrog } from '../../components/FrogScene';
 import { useEvent } from '../events/useEvents';
 import { eventPhase, formatTime } from '../events/eventPhase';
 import { encodeCheckinQR } from '../checkin/qrPayload';
@@ -90,9 +91,11 @@ export default function EventQRPage() {
       )}
 
       {phase === 'checkin' && (
-        <div className="mt-6 flex flex-col items-center">
+        <div className="mt-16 flex flex-col items-center">
           {code ? (
-            <div className="rounded-3xl border-4 border-frog-600 bg-white p-4">
+            <div className="relative rounded-3xl border-4 border-frog-600 bg-white p-4">
+              {/* stands on top of the frame, outside the QR's quiet zone */}
+              <GuardFrog saluteKey={windowIndex} className="absolute -top-[58px] right-3" />
               <QRCodeSVG value={encodeCheckinQR(event.id, code)} size={260} level="M" />
             </div>
           ) : (

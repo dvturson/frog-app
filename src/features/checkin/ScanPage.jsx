@@ -12,6 +12,7 @@ import { Html5Qrcode } from 'html5-qrcode';
 import { supabase } from '../../lib/supabase';
 import Button from '../../components/Button';
 import FrogMascot from '../../components/FrogMascot';
+import Stamp from '../../components/Stamp';
 import { parseCheckinQR } from './qrPayload';
 
 const READER_ID = 'leap-qr-reader';
@@ -103,7 +104,8 @@ export default function ScanPage() {
       />
 
       {status === 'success' && (
-        <div className="flex flex-col items-center rounded-2xl bg-frog-50 p-6 text-center">
+        <div className="relative flex flex-col items-center overflow-hidden rounded-2xl bg-frog-50 p-6 text-center">
+          <Stamp className="top-3 right-3" />
           <FrogMascot mood="cheer" size={120} />
           <p className="mt-2 font-semibold text-frog-800">{message}</p>
         </div>

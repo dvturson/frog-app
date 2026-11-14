@@ -7,6 +7,7 @@
  */
 import Card from '../../components/Card';
 import FrogMascot from '../../components/FrogMascot';
+import FrogScene from '../../components/FrogScene';
 import { useAuth } from '../../lib/auth/useAuth';
 import LeaderboardList from './LeaderboardList';
 import { useLeaderboard } from './useLeaderboard';
@@ -29,7 +30,9 @@ export default function LeaderboardPage() {
         {loading ? (
           <p className="text-sm text-neutral-500">Loading…</p>
         ) : error ? (
-          <p className="text-sm text-red-600">{error}</p>
+          <FrogScene scene="tangled">
+            <span className="text-red-600">{error}</span>
+          </FrogScene>
         ) : (
           <LeaderboardList rows={rows} highlightGroupId={profile?.frog_group_id} showBreakdown />
         )}

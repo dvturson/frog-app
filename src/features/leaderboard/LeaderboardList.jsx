@@ -1,7 +1,10 @@
+import { HangingFrog, PomPomFrog } from '../../components/FrogScene';
+
 const MEDALS = ['🥇', '🥈', '🥉'];
 
 /**
- * Ranked list of FROG groups.
+ * Ranked list of FROG groups. Last place gets a frog shaking pom-poms; your
+ * group's row has a frog hanging off its bottom edge.
  * @param {{
  *   rows: import('../../lib/types').LeaderboardRow[],
  *   highlightGroupId?: string | null,   the viewer's group
@@ -13,12 +16,13 @@ export default function LeaderboardList({ rows, highlightGroupId, showBreakdown 
 
   return (
     <ol className="space-y-2">
-      {rows.map((row) => {
+      {rows.map((row, i) => {
         const mine = row.id === highlightGroupId;
+        const last = rows.length > 1 && i === rows.length - 1;
         return (
           <li
             key={row.id}
-            className={`flex items-center gap-3 rounded-xl px-3 py-2 ${
+            className={`relative flex items-center gap-3 rounded-xl px-3 py-2 ${
               mine ? 'border-2 border-frog-500 bg-frog-50' : 'bg-neutral-50'
             }`}
           >
@@ -40,6 +44,8 @@ export default function LeaderboardList({ rows, highlightGroupId, showBreakdown 
                 </p>
               )}
             </div>
+            {last && <PomPomFrog size={34} />}
+            {mine && <HangingFrog className="right-16" />}
             <span className="text-lg font-extrabold tabular-nums text-frog-800">
               {row.total_points}
             </span>
