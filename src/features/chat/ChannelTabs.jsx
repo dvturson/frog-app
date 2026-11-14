@@ -16,7 +16,7 @@ export default function ChannelTabs({ channels, active, onSelect }) {
           role="tab"
           aria-selected={active === c.id}
           onClick={() => onSelect(c.id)}
-          className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-semibold ${
+          className={`shrink-0 rounded-full px-4 py-1.5 text-base font-semibold ${
             active === c.id ? 'bg-frog-600 text-white' : 'bg-frog-50 text-frog-700'
           }`}
         >

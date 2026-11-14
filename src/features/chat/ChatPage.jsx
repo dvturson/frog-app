@@ -26,15 +26,15 @@ export default function ChatPage() {
 
   const channels = isFrog
     ? [
-      { id: 'announcements', label: '📣 Announcements' },
-      { id: 'group', label: 'Group' },
-      ...members.map((m) => ({ id: `dm:${m.id}`, label: m.display_name.split(' ')[0] })),
-    ]
+        { id: 'announcements', label: '📣 Announcements' },
+        { id: 'group', label: 'Group' },
+        ...members.map((m) => ({ id: `dm:${m.id}`, label: m.display_name.split(' ')[0] })),
+      ]
     : [
-      { id: 'announcements', label: '📣 Announcements' },
-      { id: 'frog', label: 'My FROG' },
-      { id: 'group', label: 'Group' },
-    ];
+        { id: 'announcements', label: '📣 Announcements' },
+        { id: 'frog', label: 'My FROG' },
+        { id: 'group', label: 'Group' },
+      ];
 
   const [active, setActive] = useState('announcements');
   const [draft, setDraft] = useState('');
@@ -98,7 +98,7 @@ export default function ChatPage() {
             <button
               type="submit"
               disabled={sending || !draft.trim()}
-              className="rounded-full bg-frog-600 px-4 text-sm font-semibold text-white disabled:opacity-50"
+              className="rounded-full bg-frog-600 px-5 text-base font-semibold text-white disabled:opacity-50"
             >
               Send
             </button>

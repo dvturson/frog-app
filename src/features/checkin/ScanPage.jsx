@@ -128,7 +128,7 @@ export default function ScanPage() {
         ) : (
           <Button onClick={startCamera}>Open camera</Button>
         )}
-        <label className="inline-flex cursor-pointer items-center justify-center rounded-xl border-2 border-frog-600 px-4 py-3 text-sm font-semibold text-frog-700 hover:bg-frog-50">
+        <label className="inline-flex cursor-pointer items-center justify-center rounded-full border border-frog-600 px-5 py-3 text-base font-semibold text-frog-700 hover:bg-frog-50">
           Upload a photo of the QR
           <input
             type="file"

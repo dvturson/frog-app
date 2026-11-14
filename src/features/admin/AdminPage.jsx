@@ -29,7 +29,7 @@ export default function AdminPage() {
           type="file"
           accept=".csv,text/csv"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-          className="block w-full text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-frog-100 file:px-3 file:py-2 file:font-semibold file:text-frog-800"
+          className="block w-full text-sm file:mr-3 file:rounded-full file:border-0 file:bg-frog-100 file:px-3 file:py-2 file:font-semibold file:text-frog-800"
         />
         {file && <p className="mt-2 text-xs text-neutral-500">Selected: {file.name}</p>}
         <Button full className="mt-4" disabled>

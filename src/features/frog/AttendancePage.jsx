@@ -109,7 +109,7 @@ export default function AttendancePage() {
       <button
         type="button"
         onClick={() => navigate('/frog')}
-        className="text-sm font-semibold text-frog-700"
+        className="text-base font-semibold text-frog-700"
       >
         ← FROG Tools
       </button>

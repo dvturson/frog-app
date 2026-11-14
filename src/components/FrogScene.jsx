@@ -8,9 +8,10 @@
  *
  * Also exports small standalone frogs: PomPomFrog, HangingFrog, GuardFrog.
  */
-import { FrogFigure } from './FrogMascot';
+import { CelEllipse, FrogFigure, FrogHead, FrogIris, FrogMouth, Limb } from './FrogMascot';
+import { FROG } from './frogStyle';
 
-const DARK = '#1c4825';
+const { DARK, INK, GOLD, GOLD_SHADE, BELLY, BELLY_SHADE } = FROG;
 const WOOD = '#c08a5b';
 const WATER = '#bfe6f5';
 const CORD = '#6b7280';
@@ -163,7 +164,8 @@ export default function FrogScene({ scene, children, className = '', width = 200
 }
 
 /**
- * Shaggy pom-pom centred on (0,0). Strands drawn as a ring of circles.
+ * Shaggy pom-pom centred on (0,0): a ring of cel-shaded strands around a core,
+ * with one ink outline around the whole puff.
  * @param {{ delay?: string }} props
  */
 function PomPom({ delay = '0ms' }) {
@@ -173,10 +175,25 @@ function PomPom({ delay = '0ms' }) {
   });
   return (
     <g className="pom-shake" style={{ animationDelay: delay }}>
+      <g fill={DARK} stroke={DARK} strokeWidth={INK * 2}>
+        {strands.map((p, i) => (
+          <circle key={i} cx={p.x} cy={p.y} r="9" />
+        ))}
+      </g>
       {strands.map((p, i) => (
-        <circle key={i} cx={p.x} cy={p.y} r="9" fill={i % 2 ? '#e2a812' : '#f5c242'} />
+        <CelEllipse
+          key={i}
+          cx={p.x}
+          cy={p.y}
+          rx={9}
+          ry={9}
+          base={GOLD}
+          shade={GOLD_SHADE}
+          outline={false}
+        />
       ))}
-      <circle r="14" fill="#f5c242" />
+      <CelEllipse cx={0} cy={0} rx={14} ry={14} base={GOLD} shade={GOLD_SHADE} outline={false} />
+      <ellipse cx="-5" cy="-6" rx="4" ry="2" fill="#fde68a" transform="rotate(-30 -5 -6)" />
     </g>
   );
 }
@@ -214,7 +231,7 @@ export function PomPomFrog({ size = 40 }) {
  * @returns {import('react').JSX.Element}
  */
 export function HangingFrog({ className = '' }) {
-  const skin = '#3a9a4b';
+  const ink = 0.9; // outline width for this small 30x36 drawing
   return (
     <svg
       viewBox="0 0 30 36"
@@ -225,29 +242,39 @@ export function HangingFrog({ className = '' }) {
       aria-hidden="true"
     >
       {/* legs, kicking */}
-      <g stroke={skin} strokeWidth="3" strokeLinecap="round">
-        <path className="kick-l" d="M12 26 L9 33" />
-        <path className="kick-r" d="M18 26 L21 33" />
-      </g>
+      <Limb className="kick-l" d="M12 26 L9 33" width={3} ink={ink} />
+      <Limb className="kick-r" d="M18 26 L21 33" width={3} ink={ink} />
       {/* arms up to the fingertips on the edge */}
-      <g stroke={skin} strokeWidth="3" strokeLinecap="round">
-        <path d="M8 2 L10 13" />
-        <path d="M22 2 L20 13" />
-      </g>
-      <circle cx="8" cy="2" r="2.2" fill={skin} />
-      <circle cx="22" cy="2" r="2.2" fill={skin} />
+      <Limb d="M8 2 L10 13" width={3} ink={ink} />
+      <Limb d="M22 2 L20 13" width={3} ink={ink} />
+      <CelEllipse cx={8} cy={2} rx={2.2} ry={2.2} ink={ink} />
+      <CelEllipse cx={22} cy={2} rx={2.2} ry={2.2} ink={ink} />
       {/* body + head */}
-      <ellipse cx="15" cy="22" rx="6" ry="6" fill={skin} />
-      <ellipse cx="15" cy="23" rx="3.5" ry="3.5" fill="#bbe3c1" />
-      <ellipse cx="15" cy="15" rx="7.5" ry="5.5" fill={skin} />
-      <circle cx="11.5" cy="10.5" r="3" fill={skin} />
-      <circle cx="18.5" cy="10.5" r="3" fill={skin} />
-      <circle cx="11.5" cy="10.5" r="2" fill="#fff" />
-      <circle cx="18.5" cy="10.5" r="2" fill="#fff" />
-      {/* looking up at the edge, worried */}
-      <circle cx="11.5" cy="9.6" r="1" fill={DARK} />
-      <circle cx="18.5" cy="9.6" r="1" fill={DARK} />
-      <ellipse cx="15" cy="17" rx="1.3" ry="1.6" fill={DARK} />
+      <CelEllipse cx={15} cy={22} rx={6} ry={6} ink={ink} />
+      <CelEllipse
+        cx={15}
+        cy={23}
+        rx={3.5}
+        ry={3.5}
+        base={BELLY}
+        shade={BELLY_SHADE}
+        outline={false}
+      />
+      <FrogHead
+        cx={15}
+        cy={15}
+        rx={7.5}
+        ry={5.5}
+        ink={ink}
+        eyes={[
+          { cx: 11.5, cy: 10.5, r: 3 },
+          { cx: 18.5, cy: 10.5, r: 3 },
+        ]}
+      />
+      {/* looking up at the edge */}
+      <FrogIris cx={11.5} cy={9.7} r={1.6} />
+      <FrogIris cx={18.5} cy={9.7} r={1.6} />
+      <FrogMouth cx={15} cy={15} rx={7.5} ry={5.5} width={0.8} />
     </svg>
   );
 }
@@ -259,7 +286,6 @@ export function HangingFrog({ className = '' }) {
  * @returns {import('react').JSX.Element}
  */
 export function GuardFrog({ saluteKey, size = 64, className = '' }) {
-  const skin = '#3a9a4b';
   return (
     <svg
       viewBox="0 0 120 120"
@@ -280,23 +306,9 @@ export function GuardFrog({ saluteKey, size = 64, className = '' }) {
       <path d="M34 26 L42 26" stroke="#fff" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
       <path d="M70 26 L78 26" stroke="#fff" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
       {/* right arm: at its side, then snaps up to the brow. Remounts to replay. */}
-      <g key={saluteKey}>
-        <path
-          className="salute-rest"
-          d="M90 78 L102 94"
-          stroke={skin}
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-        <path
-          className="salute-up"
-          d="M88 76 L114 52 L88 16 L72 17"
-          stroke={skin}
-          strokeWidth="10"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
+      <g key={saluteKey} strokeLinejoin="round">
+        <Limb className="salute-rest" d="M90 78 L102 94" />
+        <Limb className="salute-up" d="M88 76 L114 52 L88 16 L72 17" />
       </g>
     </svg>
   );

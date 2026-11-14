@@ -9,7 +9,7 @@
  */
 export default function Card({ title, action, className = '', children }) {
   return (
-    <section className={`rounded-2xl border border-frog-100 bg-white p-4 shadow-sm ${className}`}>
+    <section className={`rounded-2xl bg-white p-4 shadow-sm ${className}`}>
       {(title || action) && (
         <div className="mb-3 flex items-center justify-between">
           {title && <h2 className="text-base font-bold text-frog-900">{title}</h2>}

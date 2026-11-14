@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { levelFromXp } from '../lib/points';
+import { CelEllipse, FrogHead, FrogIris } from './FrogMascot';
+import { FROG } from './frogStyle';
+
+const INK = 0.9; // outline width for the small 28x22 frog
 
 /**
- * Small frog head facing left with its mouth open. Cheeks puff when `gulpKey` changes.
+ * Small frog head facing left with its mouth open, in the shared frog style. Cheeks puff when `gulpKey` changes.
  * @param {{ gulpKey: number }} props
  */
 function HungryFrog({ gulpKey }) {
@@ -13,19 +17,32 @@ function HungryFrog({ gulpKey }) {
       style={{ overflow: 'visible' }}
       aria-hidden="true"
     >
-      <ellipse cx="17" cy="13" rx="11" ry="8" fill="#3a9a4b" />
-      <circle cx="13" cy="5" r="4.5" fill="#3a9a4b" />
-      <circle cx="22" cy="5" r="4.5" fill="#3a9a4b" />
-      <circle cx="13" cy="5" r="3" fill="#fff" />
-      <circle cx="22" cy="5" r="3" fill="#fff" />
-      <circle cx="12" cy="5.5" r="1.5" fill="#1c4825" />
-      <circle cx="21" cy="5.5" r="1.5" fill="#1c4825" />
+      <FrogHead
+        cx={17}
+        cy={13}
+        rx={11}
+        ry={8}
+        ink={INK}
+        eyes={[
+          { cx: 13, cy: 5, r: 4.5 },
+          { cx: 22, cy: 5, r: 4.5 },
+        ]}
+      />
+      {/* eyeing the worm */}
+      <FrogIris cx={12} cy={5.5} r={2.2} />
+      <FrogIris cx={21} cy={5.5} r={2.2} />
       {/* open mouth on the left, where the worm goes in */}
-      <path d="M6 12 L14 13.5 L6 16 Z" fill="#1c4825" />
+      <path
+        d="M6 12 L14 13.5 L6 16 Z"
+        fill={FROG.DARK}
+        stroke={FROG.DARK}
+        strokeWidth={INK}
+        strokeLinejoin="round"
+      />
       {gulpKey > 0 && (
         <g key={gulpKey} className="cheek-bulge">
-          <ellipse cx="18" cy="15" rx="7" ry="5" fill="#3a9a4b" />
-          <circle cx="18" cy="15" r="2.5" fill="#f9a8b8" />
+          <CelEllipse cx={18} cy={15} rx={7} ry={5} ink={INK} />
+          <circle cx="18" cy="15" r="2.5" fill={FROG.BLUSH} />
         </g>
       )}
     </svg>
@@ -54,12 +71,12 @@ export default function XPBar({ xp, className = '' }) {
 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <span className="rounded-md bg-frog-600 px-1.5 py-0.5 text-xs font-bold text-white">
+      <span className="rounded-md bg-neutral-800 px-1.5 py-0.5 text-xs font-bold text-neutral-100">
         Lv {level}
       </span>
-      <div className="flex flex-1 items-center">
+      <div className="flex flex-1 items-center rounded-full bg-neutral-200 py-0.5 pr-1 pl-2">
         <div
-          className="relative h-2.5 flex-1 rounded-full bg-frog-100"
+          className="relative h-2.5 flex-1 rounded-full bg-neutral-400"
           role="progressbar"
           aria-valuenow={intoLevel}
           aria-valuemax={needed}
@@ -70,17 +87,17 @@ export default function XPBar({ xp, className = '' }) {
             className="absolute inset-y-0 right-[-6px] transition-[left] duration-700 ease-out"
             style={{ left: `${wormLeft}%` }}
           >
-            <div className="worm-wriggle relative h-full w-full rounded-full bg-[repeating-linear-gradient(90deg,#f0a3b5_0_5px,#e58aa1_5px_7px)]">
-              {/* worm's alarmed eye on its free end */}
-              <span className="absolute top-[2px] left-[3px] h-[4px] w-[4px] rounded-full bg-white">
-                <span className="absolute top-[1px] left-0 h-[2px] w-[2px] rounded-full bg-neutral-900" />
+            <div className="worm-wriggle relative h-full w-full rounded-full border border-frog-900 bg-[repeating-linear-gradient(90deg,#f0a3b5_0_5px,#e58aa1_5px_7px)] shadow-[inset_0_-3px_0_rgba(0,0,0,0.18)]">
+              {/* worm's eye on its free end: dark iris + glint, like the frogs */}
+              <span className="absolute top-[1px] left-[2px] h-[4px] w-[4px] rounded-full bg-frog-900">
+                <span className="absolute top-[0.5px] left-[0.5px] h-[1.5px] w-[1.5px] rounded-full bg-white" />
               </span>
             </div>
           </div>
         </div>
         <HungryFrog gulpKey={gulpKey} />
       </div>
-      <span className="text-xs tabular-nums text-neutral-500">
+      <span className="text-xs font-semibold tabular-nums text-neutral-200">
         {intoLevel}/{needed}
       </span>
     </div>

@@ -38,14 +38,10 @@ export default function AppShell() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[390px] flex-col bg-white shadow-sm">
+    <div className="mx-auto flex min-h-dvh w-full max-w-[390px] flex-col bg-neutral-100 shadow-sm">
       {signedIn && <TopBar />}
       {signedIn && !online && (
-        <FrogScene
-          scene="tangled"
-          width={140}
-          className="border-b border-frog-100 bg-frog-50 !py-2"
-        >
+        <FrogScene scene="tangled" width={140} className="bg-frog-50 !py-2">
           You&apos;re offline. Things will update when you reconnect.
         </FrogScene>
       )}

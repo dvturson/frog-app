@@ -71,7 +71,7 @@ export default function EventQRPage() {
       <button
         type="button"
         onClick={() => navigate('/frog')}
-        className="self-start text-sm font-semibold text-frog-700"
+        className="self-start text-base font-semibold text-frog-700"
       >
         ← FROG Tools
       </button>

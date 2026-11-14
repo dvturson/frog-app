@@ -75,7 +75,7 @@ export default function FrogAISheet({ open, onClose, onPick }) {
             type="button"
             disabled={thinking}
             onClick={() => respond(p)}
-            className="rounded-full border border-frog-300 px-3 py-1 text-xs font-semibold text-frog-800 hover:bg-frog-50 disabled:opacity-50"
+            className="rounded-full border border-frog-300 px-3 py-1 text-sm font-semibold text-frog-800 hover:bg-frog-50 disabled:opacity-50"
           >
             {p.label}
           </button>
@@ -89,7 +89,7 @@ export default function FrogAISheet({ open, onClose, onPick }) {
               <button
                 type="button"
                 onClick={() => onPick(idea)}
-                className="w-full rounded-xl bg-frog-50 px-3 py-2 text-left text-sm font-semibold text-frog-800 hover:bg-frog-100"
+                className="w-full rounded-full bg-frog-50 px-5 py-2 text-left text-base font-semibold text-frog-800 hover:bg-frog-100"
               >
                 {idea.title}
                 <span className="block text-xs font-normal text-neutral-500">

@@ -1,19 +1,25 @@
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
+import { CelEllipse, FrogHead, FrogIris, FrogMouth } from './FrogMascot';
+import { FROG } from './frogStyle';
 
 const THRESHOLD = 80; // px of (dampened) pull needed to refresh
 const MAX_PULL = 150;
+const INK = 1.8; // outline width at this drawing's size
 
 /**
  * A frog stuck to the top edge by its feet, stretched like taffy as you pull.
  * @param {{ pull: number }} props pull distance in px
  */
 function StretchyFrog({ pull }) {
+  const clipId = `stretch-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   const h = Math.max(pull, 1);
   const stretch = Math.min(pull / MAX_PULL, 1);
   const neckW = 34 - stretch * 22; // body gets skinnier the further you pull
   const headY = h - 16;
   const ready = pull >= THRESHOLD;
-  const eyeR = 3 + stretch * 3; // eyes widen in alarm
+  const irisR = Math.max(1.8, 4.5 - stretch * 2.7); // irises shrink in alarm
+  const body = `M${40 - 18} 0 C${40 - neckW / 2} ${h * 0.35}, ${40 - neckW / 2} ${h * 0.6}, ${40 - 20} ${headY}
+            L${40 + 20} ${headY} C${40 + neckW / 2} ${h * 0.6}, ${40 + neckW / 2} ${h * 0.35}, ${40 + 18} 0 Z`;
 
   return (
     <svg
@@ -23,33 +29,37 @@ function StretchyFrog({ pull }) {
       style={{ overflow: 'visible' }}
       aria-hidden="true"
     >
+      <defs>
+        <clipPath id={clipId}>
+          <path d={body} />
+        </clipPath>
+      </defs>
       {/* feet stuck to the top */}
-      <ellipse cx="26" cy="2" rx="9" ry="4" fill="#2e8b3e" />
-      <ellipse cx="54" cy="2" rx="9" ry="4" fill="#2e8b3e" />
-      {/* stretched body */}
-      <path
-        d={`M${40 - 18} 0 C${40 - neckW / 2} ${h * 0.35}, ${40 - neckW / 2} ${h * 0.6}, ${40 - 20} ${headY}
-            L${40 + 20} ${headY} C${40 + neckW / 2} ${h * 0.6}, ${40 + neckW / 2} ${h * 0.35}, ${40 + 18} 0 Z`}
-        fill="#3a9a4b"
-      />
+      <CelEllipse cx={26} cy={2} rx={9} ry={4} ink={INK} />
+      <CelEllipse cx={54} cy={2} rx={9} ry={4} ink={INK} />
+      {/* stretched body: shadow tone, a lit copy shifted left (clipped to the body)
+          leaves a hard shadow strip down the right side, then the ink outline */}
+      <path d={body} fill={FROG.SHADE} />
+      <path d={body} fill={FROG.BODY} transform="translate(-6 0)" clipPath={`url(#${clipId})`} />
+      <path d={body} fill="none" stroke={FROG.DARK} strokeWidth={INK} strokeLinejoin="round" />
       {/* head at the bottom */}
-      <ellipse cx="40" cy={headY} rx="22" ry="15" fill="#3a9a4b" />
-      <circle cx="30" cy={headY - 10} r="7" fill="#3a9a4b" />
-      <circle cx="50" cy={headY - 10} r="7" fill="#3a9a4b" />
-      <circle cx="30" cy={headY - 10} r={eyeR + 1.5} fill="#fff" />
-      <circle cx="50" cy={headY - 10} r={eyeR + 1.5} fill="#fff" />
-      <circle cx="30" cy={headY - 9} r={Math.max(1.2, 3 - stretch * 1.8)} fill="#1c4825" />
-      <circle cx="50" cy={headY - 9} r={Math.max(1.2, 3 - stretch * 1.8)} fill="#1c4825" />
+      <FrogHead
+        cx={40}
+        cy={headY}
+        rx={22}
+        ry={15}
+        ink={INK}
+        eyes={[
+          { cx: 30, cy: headY - 10, r: 7 },
+          { cx: 50, cy: headY - 10, r: 7 },
+        ]}
+      />
+      <FrogIris cx={30} cy={headY - 9} r={irisR} />
+      <FrogIris cx={50} cy={headY - 9} r={irisR} />
       {ready ? (
-        <ellipse cx="40" cy={headY + 4} rx="5" ry="4" fill="#1c4825" />
+        <ellipse cx="40" cy={headY + 4} rx="5" ry="4" fill={FROG.DARK} />
       ) : (
-        <path
-          d={`M33 ${headY + 3} Q40 ${headY + 7} 47 ${headY + 3}`}
-          stroke="#1c4825"
-          strokeWidth="2"
-          fill="none"
-          strokeLinecap="round"
-        />
+        <FrogMouth cx={40} cy={headY} rx={22} ry={15} width={2} />
       )}
     </svg>
   );

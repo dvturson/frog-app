@@ -23,7 +23,7 @@ export default function LeaderboardList({ rows, highlightGroupId, showBreakdown 
           <li
             key={row.id}
             className={`relative flex items-center gap-3 rounded-xl px-3 py-2 ${
-              mine ? 'border-2 border-frog-500 bg-frog-50' : 'bg-neutral-50'
+              mine ? 'bg-frog-100' : 'bg-neutral-50'
             }`}
           >
             <span className="w-7 text-center text-lg font-bold text-frog-700">

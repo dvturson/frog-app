@@ -68,10 +68,7 @@ export default function LoginPage() {
 
       <div className="flex flex-1 flex-col items-center px-6 pt-8">
         <FrogMascot mood="happy" size={80} />
-        <form
-          onSubmit={handleSubmit}
-          className="mt-4 w-full rounded-2xl border border-frog-100 bg-white p-5 shadow-sm"
-        >
+        <form onSubmit={handleSubmit} className="mt-4 w-full rounded-2xl bg-white p-5 shadow-sm">
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-neutral-400">
             JMU Single Sign-On (mock)
           </p>
@@ -85,7 +82,7 @@ export default function LoginPage() {
               ].map((o) => (
                 <label
                   key={o.id}
-                  className={`flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 py-2 text-sm font-semibold ${
+                  className={`flex cursor-pointer items-center justify-center gap-2 rounded-full border py-2 text-base font-semibold ${
                     iAm === o.id
                       ? 'border-frog-600 bg-frog-50 text-frog-800'
                       : 'border-neutral-200 text-neutral-500'

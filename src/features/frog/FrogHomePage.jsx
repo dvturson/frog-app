@@ -10,6 +10,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../lib/auth/useAuth';
 import Button from '../../components/Button';
+import ChatBubbleIcon from '../../components/ChatBubbleIcon';
 import Card from '../../components/Card';
 import LeaderboardList from '../leaderboard/LeaderboardList';
 import { useLeaderboard } from '../leaderboard/useLeaderboard';
@@ -65,7 +66,7 @@ export default function FrogHomePage() {
                   <li key={e.id}>
                     <Link
                       to={qrLink(e)}
-                      className="block rounded-xl border border-frog-200 px-3 py-2 hover:bg-frog-50"
+                      className="block rounded-xl bg-neutral-50 px-3 py-2 hover:bg-frog-50"
                     >
                       <p className="font-semibold">{e.title}</p>
                       <p className="text-xs text-neutral-500">
@@ -76,7 +77,7 @@ export default function FrogHomePage() {
                 ) : (
                   <li
                     key={`empty-${i}`}
-                    className="rounded-xl border border-dashed border-neutral-300 px-3 py-3 text-sm text-neutral-400"
+                    className="rounded-xl bg-neutral-50 px-3 py-3 text-sm text-neutral-400"
                   >
                     No optional event.
                   </li>
@@ -97,6 +98,7 @@ export default function FrogHomePage() {
 
       <div className="grid grid-cols-2 gap-3">
         <Button variant="secondary" to="/chat">
+          <ChatBubbleIcon />
           Group chat
         </Button>
         <Button variant="secondary" to="/frog/olympics">

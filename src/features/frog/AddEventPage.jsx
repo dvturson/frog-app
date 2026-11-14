@@ -105,7 +105,7 @@ export default function AddEventPage() {
       <button
         type="button"
         onClick={() => navigate(-1)}
-        className="text-sm font-semibold text-frog-700"
+        className="text-base font-semibold text-frog-700"
       >
         ← Back
       </button>
@@ -154,7 +154,7 @@ export default function AddEventPage() {
       <button
         type="button"
         onClick={() => setAiOpen(true)}
-        className="fixed bottom-24 right-[max(1rem,calc(50%-195px+1rem))] z-30 flex items-center gap-2 rounded-full bg-frog-700 py-2 pl-2 pr-4 text-sm font-bold text-white shadow-lg"
+        className="fixed bottom-24 right-[max(1rem,calc(50%-195px+1rem))] z-30 flex items-center gap-2 rounded-full bg-frog-700 py-2 pl-2 pr-4 text-base font-bold text-white shadow-lg"
       >
         <FrogMascot mood="happy" size={32} /> FrogAI
       </button>

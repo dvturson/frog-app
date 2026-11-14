@@ -32,7 +32,7 @@ export default function BeInvolvedList() {
         href={BEINVOLVED_URL}
         target="_blank"
         rel="noreferrer"
-        className="block w-full rounded-xl border-2 border-frog-600 px-4 py-3 text-center text-sm font-semibold text-frog-700 hover:bg-frog-50"
+        className="block w-full rounded-full border border-jmu-purple bg-jmu-purple px-5 py-3 text-center text-base font-semibold text-white hover:opacity-90"
       >
         See more on BeInvolved!
       </a>

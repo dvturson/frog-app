@@ -3,7 +3,7 @@ import { replayAnimation } from '../lib/fx';
 
 const VARIANTS = {
   primary: 'bg-frog-600 text-white hover:bg-frog-700 disabled:bg-frog-300',
-  secondary: 'bg-white text-frog-700 border-2 border-frog-600 hover:bg-frog-50 disabled:opacity-50',
+  secondary: 'bg-white text-frog-700 border border-frog-600 hover:bg-frog-50 disabled:opacity-50',
   ghost: 'bg-transparent text-frog-700 hover:bg-frog-50 disabled:opacity-50',
   danger: 'bg-red-600 text-white hover:bg-red-700 disabled:opacity-50',
 };
@@ -34,7 +34,7 @@ export default function Button({
     onPointerDown?.(/** @type {any} */ (e));
   };
 
-  const classes = `inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors disabled:cursor-not-allowed ${
+  const classes = `inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-base font-semibold transition-colors disabled:cursor-not-allowed ${
     VARIANTS[variant]
   } ${full ? 'w-full' : ''} ${className}`;
 
