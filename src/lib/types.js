@@ -74,6 +74,7 @@
  * @property {string | null} recipient_id
  * @property {string} body
  * @property {string} created_at
+ * @property {boolean} [is_seed]  demo seed row, kept by the 0004 purge job
  */
 
 export {};

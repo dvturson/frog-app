@@ -212,3 +212,6 @@ insert into public.messages (frog_group_id, user_id, channel, recipient_id, body
    'Bluestone Bunch, let''s climb that leaderboard. Downtown dinner tonight!', now() - interval '4 hours'),
   ('11111111-0000-0000-0000-000000000004', 'f0000000-0000-0000-0000-000000000004', 'announcements', null,
    'Quad Squad: relay practice on the Quad after dinner. Bring water!', now() - interval '1 hour');
+
+-- Flag the demo chat as seed data so the 0004 purge job never deletes it.
+update public.messages set is_seed = true;
