@@ -19,6 +19,26 @@ export const SORRY_MESSAGE =
 /** Where each role lands after signing in. */
 const HOME_BY_ROLE = { freshman: '/', frog: '/frog', admin: '/admin' };
 
+/**
+ * Public demo mode: one-tap demo buttons, and a wrong "I am a…" pick still signs in.
+ * On by default. Set VITE_DEMO_MODE=false for a real deployment.
+ */
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== 'false';
+
+/** Seeded demo accounts (see README). Both are in Duke Dogs, so their chats connect. */
+const DEMO_ACCOUNTS = /** @type {const} */ ([
+  { iAm: 'student', label: '🎓 Student', email: 'student1@leap.demo' },
+  { iAm: 'frog', label: '🐸 FROG', email: 'frog1@leap.demo' },
+]);
+const DEMO_PASSWORD = 'LeapFrog2026!';
+
+/** How long the filled-in form stays visible before a demo sign-in submits. */
+const DEMO_SUBMIT_DELAY_MS = 600;
+
+/**
+ * Mock JMU SSO login, with one-tap demo accounts when DEMO_MODE is on.
+ * @returns {import('react').JSX.Element}
+ */
 export default function LoginPage() {
   const { signIn, signOut } = useAuth();
   const navigate = useNavigate();
@@ -29,12 +49,37 @@ export default function LoginPage() {
   const [busy, setBusy] = useState(false);
 
   /** @param {import('react').FormEvent} e */
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
+    attemptSignIn(email, password, iAm);
+  }
+
+  /**
+   * Fill the form with a demo account, show it briefly, then sign in.
+   * @param {(typeof DEMO_ACCOUNTS)[number]} account
+   */
+  function handleDemo(account) {
+    setIAm(account.iAm);
+    setEmail(account.email);
+    setPassword(DEMO_PASSWORD);
+    setError('');
+    setBusy(true);
+    setTimeout(() => attemptSignIn(account.email, DEMO_PASSWORD, account.iAm), DEMO_SUBMIT_DELAY_MS);
+  }
+
+  /**
+   * Sign in and send the user to their role's home page.
+   * Values are passed in (not read from state) so demo buttons can call this right away.
+   * @param {string} emailValue
+   * @param {string} passwordValue
+   * @param {'student' | 'frog'} iAmValue
+   * @returns {Promise<void>}
+   */
+  async function attemptSignIn(emailValue, passwordValue, iAmValue) {
     setError('');
     setBusy(true);
     try {
-      const profile = await signIn(email.trim(), password);
+      const profile = await signIn(emailValue.trim(), passwordValue);
       const role = profile?.role;
 
       if (role !== 'freshman' && role !== 'frog' && role !== 'admin') {
@@ -42,8 +87,9 @@ export default function LoginPage() {
         setError(SORRY_MESSAGE);
         return;
       }
-      const expected = iAm === 'frog' ? 'frog' : 'freshman';
-      if (role !== 'admin' && role !== expected) {
+      const expected = iAmValue === 'frog' ? 'frog' : 'freshman';
+      // In demo mode a wrong pick is not worth blocking; go to the account's real home.
+      if (!DEMO_MODE && role !== 'admin' && role !== expected) {
         await signOut();
         setError(
           `This account is registered as a ${role === 'frog' ? 'FROG' : 'Student'}. Pick that option and try again.`,
@@ -142,9 +188,30 @@ export default function LoginPage() {
             {busy ? 'Signing in…' : 'Sign in'}
           </Button>
         </form>
-        <p className="mt-4 text-center text-xs text-neutral-500">
-          Demo accounts are listed in the README.
-        </p>
+        {DEMO_MODE ? (
+          <div className="mt-4 w-full rounded-2xl bg-white p-4 shadow-sm">
+            <p className="text-center text-sm font-bold text-frog-900">Just exploring?</p>
+            <p className="text-center text-xs text-neutral-500">Try the demo with one tap</p>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              {DEMO_ACCOUNTS.map((a) => (
+                <Button
+                  key={a.iAm}
+                  type="button"
+                  variant="secondary"
+                  full
+                  disabled={busy}
+                  onClick={() => handleDemo(a)}
+                >
+                  {a.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="mt-4 text-center text-xs text-neutral-500">
+            Demo accounts are listed in the README.
+          </p>
+        )}
       </div>
     </div>
   );
